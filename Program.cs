@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using resorty.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<resortyContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("resortyContext") ?? throw new InvalidOperationException("Connection string 'resortyContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Index}/{id?}");
 
 app.Run();

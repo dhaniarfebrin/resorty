@@ -1,5 +1,8 @@
-html {
-  font-size: 14px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -14,5 +17,133 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #F5F8FB !important;
+    min-height: 100%;
+    font-family: 'Poppins', sans-serif !important;
+    overflow-x: hidden;
+}
+
+.text-primary {
+    color: #0C86AD !important;
+}
+
+.text-secondary {
+    color: #7690A4 !important;
+}
+
+main .d-flex {
+    height: 100%;
+}
+
+main .left {
+    min-width: 50vw;
+    min-height: 100vh;
+    background-color: #0C87AD;
+    overflow: hidden;
+}
+
+main .right {
+    padding-top: 40px;
+    min-width: 50vw;
+    min-height: 100vh;
+}
+
+h1.brand-title {
+    font-size: 40px;
+    font-weight: 600;
+    margin-left: 40px;
+}
+
+    h1.brand-title span {
+        font-size: 28px;
+        font-weight: 100;
+        color: #7690A4 !important
+    }
+
+.title {
+    color: #686868 !important;
+    font-weight: 600 !important;
+}
+
+div.rectangle-form {
+    max-width: 600px;
+    width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 0 18px 8px rgba(0,0,0,0.05);
+}
+
+input.form-control:focus {
+    box-shadow: none;
+    border: solid !important;
+    border-color: #0C86AD !important;
+    transition: .2s;
+}
+
+form label {
+    font-size: 22px;
+}
+
+button.btn.btn-primary {
+    background-color: #0C86AD;
+}
+
+button.btn.btn-primary.btn-lg {
+    width:400px;
+}
+
+aside.sidebar {
+    width: 270px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 3rem;
+    
+}
+
+h2.brand-title {
+    font-weight: 700;
+    margin-bottom: 4rem;
+}
+
+aside ul.link-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    height: 75%;
+}
+
+aside ul.link-list > li.link-item{
+    margin-bottom: 1rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+aside ul.link-list > li.link-item > a {
+    text-decoration: none;
+}
+
+li.link-item > a:hover {
+    margin-left: 4px;
+    transition: .3s;
+    font-size: 17px;
+}
+
+div.rectangle-form-input-room {
+    background: #ffffff;
+}
+
+div.rectangle-form-input-room > form > div.form-group > label {
+    font-size: 16px;
+}
+
+select.form-control:focus {
+    box-shadow: none;
+    border: solid !important;
+    border-color: #0C86AD !important;
+    transition: .2s;
+}
+
+div.rectangle-form-input-room > form > div.form-group {
+    margin-bottom: 1rem;
 }

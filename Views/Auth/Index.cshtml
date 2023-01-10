@@ -1,0 +1,48 @@
+﻿@model resorty.Models.User
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - resorty</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/resorty.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div>
+        <main role="main">
+           <div class="d-flex">
+               <div class="left d-flex justify-content-center align-items-center">
+                   <img src="~/image/lingk.svg" />
+                   <img src="~/image/aaa.svg" class="position-absolute" />
+               </div>
+               <div class="right d-flex flex-column">
+                  <h1 class="brand-title text-primary position-absolute">resorty <span> Room Manager</span></h1>
+                  <div class="rectangle-form p-5 m-auto">
+                      <h2 class="title">Login</h2>
+                      <form class="mt-5 d-flex flex-column" asp-action="Login">
+                          <div class="form-group">
+                              <label class="text-secondary mb-1">Username</label>
+                              <input class="form-control rounded-4" type="text" />
+                          </div>
+                          <div class="form-group mt-4">
+                              <label class="text-secondary mb-1">Password</label>
+                              <input class="form-control rounded-4" type="password" />
+                          </div>
+                          <div class="d-flex justify-content-center mt-5">
+                              <button type="submit" class="py-3 btn btn-lg btn-primary mt-5">Login</button>
+                          </div>
+                      </form>
+                  </div>
+               </div>
+           </div>
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

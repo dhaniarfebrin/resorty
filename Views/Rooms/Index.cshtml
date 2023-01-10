@@ -1,0 +1,82 @@
+﻿@model IEnumerable<resorty.Models.Room>
+
+@{
+    ViewData["Title"] = "Rooms";
+    Layout = "_layout";
+}
+
+<h1 class="mb-5">Rooms</h1>
+
+<div class="row g-5">
+    <div class="col-md-5">
+        <div class="rectangle-form-input-room rounded shadow-sm p-4">
+            <h4 class="mb-4">Add Room</h4>
+            <form asp-action="Create" class="d-flex flex-column">
+                <div class="form-group">
+                    <label>Room Name</label>
+                    <input type="text" class="form-control" name="Name" autocomplete="off"/>
+                </div>
+                <div class="form-group">
+                    <label>Floor</label>
+                    <select class="form-control" name="Floor">
+                        <option>Pilih Lantai...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" class="form-control" name="Price" autocomplete="off" />
+                </div>
+                <div class="d-flex mt-5">
+                    <button class="btn btn-primary px-4 ms-auto">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+    <div class="bg-white shadow-sm p-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Floor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Floor)
+                    </td>
+                    <td>
+                        Rp. @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
