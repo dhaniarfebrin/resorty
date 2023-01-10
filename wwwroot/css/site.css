@@ -147,3 +147,8 @@ select.form-control:focus {
 div.rectangle-form-input-room > form > div.form-group {
     margin-bottom: 1rem;
 }
+
+a.btn-primary {
+    background-color:  #0C86AD !important;
+    border: 0;
+}
