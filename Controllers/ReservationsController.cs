@@ -22,6 +22,27 @@ namespace resorty.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
+            DateTime TodayDate = DateTime.Today;
+            List<Reservation> reservations = _context.Reservation.ToList();
+            List<Room> rooms = _context.Room.ToList(); 
+
+            foreach(var reservation in reservations)
+            {
+                if(TodayDate > reservation.EndDate && reservation.Status == "Ordered")
+                {
+                    reservation.Status = "Finished";
+
+                    foreach(var room in rooms)
+                    {
+                        if(room.Name == reservation.Room)
+                        {
+                            room.Status = "Available";
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             var countDataReservations = await _context.Reservation.Where(r => r.Status == "Ordered").CountAsync();
             var countDataRooms = await _context.Room.Where(r => r.Status == "Available").CountAsync();
 
@@ -36,20 +57,20 @@ namespace resorty.Controllers
         {
             // ga nampilin reservasi kalo dah lewat tanggalnya
             // auto merubah status room nya
-            
+
             DateTime TodayDate = DateTime.Today;
             List<Reservation> reservations = _context.Reservation.ToList();
-            List<Room> rooms = _context.Room.ToList(); 
+            List<Room> rooms = _context.Room.ToList();
 
-            foreach(var reservation in reservations)
+            foreach (var reservation in reservations)
             {
-                if(TodayDate > reservation.EndDate && reservation.Status == "Ordered")
+                if (TodayDate > reservation.EndDate && reservation.Status == "Ordered")
                 {
                     reservation.Status = "Finished";
 
-                    foreach(var room in rooms)
+                    foreach (var room in rooms)
                     {
-                        if(room.Name == reservation.Room)
+                        if (room.Name == reservation.Room)
                         {
                             room.Status = "Available";
                         }

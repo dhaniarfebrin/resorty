@@ -22,7 +22,28 @@ namespace resorty.Controllers
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Room.ToListAsync());
+            DateTime TodayDate = DateTime.Today;
+            List<Reservation> reservations = _context.Reservation.ToList();
+            List<Room> rooms = _context.Room.ToList();
+
+            foreach (var reservation in reservations)
+            {
+                if (TodayDate > reservation.EndDate && reservation.Status == "Ordered")
+                {
+                    reservation.Status = "Finished";
+
+                    foreach (var room in rooms)
+                    {
+                        if (room.Name == reservation.Room)
+                        {
+                            room.Status = "Available";
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return View(await _context.Room.ToListAsync());
         }
 
         // GET: Rooms/Details/5
