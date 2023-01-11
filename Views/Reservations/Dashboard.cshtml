@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="d-flex mt-3 align-items-center mb-4">
+    <h1 class="m-0">Dashboard</h1>
+</div>
+
+<div class="row g-3">
+     <div class="col-md-3">
+         <a href="/Reservations/Index" class="link-from-dashboard">
+             <div class="rectangle-reservations data-count-view bg-white w-100 shadow-sm rounded-3 p-4">
+                 <h5 class="fw-normal text-secondary">Reservation</h5>
+                 <div class="d-flex align-items-end justify-content-end">
+                     <span class="fw-bolder"">@ViewData["countDataReservations"]</span>
+                 </div>
+             </div>
+         </a>
+     </div>
+    <div class="col-md-3">
+        <a href="/Rooms/Index" class="link-from-dashboard">
+            <div class="rectangle-reservations data-count-view bg-white w-100 shadow-sm rounded-3 p-4">
+                <h5 class="fw-normal text-secondary">Rooms Available</h5>
+                <div class="d-flex align-items-end justify-content-end">
+                    <span class="fw-bolder" ">@ViewData["countDataRooms"]</span>
+                </div>
+            </div>
+         </a>
+    </div>
+</div>
+

@@ -20,6 +20,17 @@ namespace resorty.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Dashboard()
+        {
+            var countDataReservations = await _context.Reservation.Where(r => r.Status == "Ordered").CountAsync();
+            var countDataRooms = await _context.Room.Where(r => r.Status == "Available").CountAsync();
+
+            ViewData["countDataReservations"] = countDataReservations;
+            ViewData["countDataRooms"] = countDataRooms;
+
+            return View();
+        }
+
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
@@ -47,7 +58,8 @@ namespace resorty.Controllers
                 }
             }
 
-            var dataReservation = await _context.Reservation.Where(r => r.Status == "Ordered").ToListAsync();
+            var dataReservation = await _context.Reservation.Where(r => r.Status == "Ordered").ToListAsync();       
+
             return View(dataReservation); // mengembalikan data reservasi yang masih dipesan
         }
 

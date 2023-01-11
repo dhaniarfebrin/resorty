@@ -152,3 +152,21 @@ a.btn-primary {
     background-color:  #0C86AD !important;
     border: 0;
 }
+
+div.rectangle-reservations {
+    height: 150px;
+    overflow: hidden;
+}
+
+div.data-count-view > div {
+    height: 80px;
+}
+
+    div.data-count-view > div > span {
+        color: #0C86AD;
+        font-size:46px;
+    }
+
+a.link-from-dashboard {
+    text-decoration: none;
+}

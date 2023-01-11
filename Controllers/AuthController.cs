@@ -38,7 +38,7 @@ namespace resorty.Controllers
                 {
                     if (userItem.Password == user.Password)
                     {
-                        return RedirectToAction("Index", "Reservations");
+                        return RedirectToAction("Dashboard", "Reservations");
                     }
                 }
             }
