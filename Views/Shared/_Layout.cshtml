@@ -20,12 +20,17 @@
                     </a>
                 </li>
                 <li class="link-item">
+                    <a asp-controller="Reservations" asp-action="HistoryReservations" class="text-secondary">
+                        History
+                    </a>
+                </li>
+                <li class="link-item">
                     <a asp-controller="Rooms" asp-action="Index" class="text-secondary">
                         Rooms
                     </a>
                 </li>
             </ul>
-            <a class="btn btn-danger text-light w-100 mt-auto">Logout</a>
+            <a class="btn btn-danger text-light w-100 mt-auto" asp-controller="Auth" asp-action="Logout">Logout</a>
         </aside>
         <div class="container py-5">
             <main role="main" class="pb-3">

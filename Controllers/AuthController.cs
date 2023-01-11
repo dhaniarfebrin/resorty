@@ -22,20 +22,35 @@ namespace resorty.Controllers
         // GET: Auth
         public async Task<IActionResult> Index()
         {
-              // return View(await _context.User.ToListAsync());
-              return View();
+            return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login([Bind("Username,Password")] User user)
         {
-            return RedirectToAction("Index", "Rooms");
+            var userTarget = await _context.User.ToListAsync();
+
+            foreach(var userItem in userTarget)
+            {
+                if (userItem.Username == user.Username)
+                {
+                    if (userItem.Password == user.Password)
+                    {
+                        return RedirectToAction("Index", "Reservations");
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
 
-
+        public async Task<IActionResult> Logout()
+        {
+            return RedirectToAction(nameof(Index));
+        }
 
 
 

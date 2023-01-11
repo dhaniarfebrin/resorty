@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<resorty.Models.Reservation>
-
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Reservations";
+    ViewData["Title"] = "History";
     Layout = "_Layout";
 }
 
+
 <div class="d-flex mt-3 align-items-center mb-4">
-    <h1 class="m-0">Reservations</h1>
-    <div class="w-100 d-flex">
-        <a asp-action="Create" class="btn btn-lg btn-primary ms-auto">Make Reservation</a>
-    </div>
+    <h1 class="m-0">Reservations History</h1>
 </div>
 
 <div class="row">
@@ -36,7 +36,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.PriceTotal)
                         </th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,10 +60,6 @@
                             <td>
                                 Rp. @Html.DisplayFor(modelItem => item.PriceTotal)
                             </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Cancel" asp-route-id="@item.Id">Cancel</a>
-                            </td>
                         </tr>
                     }
                 </tbody>
@@ -72,4 +67,3 @@
         </div>
     </div>
 </div>
-

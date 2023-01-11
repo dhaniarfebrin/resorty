@@ -23,11 +23,39 @@ namespace resorty.Controllers
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
-            // PR - ga nampilin reservasi kalo dah lewat tanggalnya
+            // ga nampilin reservasi kalo dah lewat tanggalnya
             // auto merubah status room nya
+            
+            DateTime TodayDate = DateTime.Today;
+            List<Reservation> reservations = _context.Reservation.ToList();
+            List<Room> rooms = _context.Room.ToList(); 
 
-              var data = await _context.Reservation.ToListAsync();
-              return View(data);
+            foreach(var reservation in reservations)
+            {
+                if(TodayDate > reservation.EndDate && reservation.Status == "Ordered")
+                {
+                    reservation.Status = "Finished";
+
+                    foreach(var room in rooms)
+                    {
+                        if(room.Name == reservation.Room)
+                        {
+                            room.Status = "Available";
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            var dataReservation = await _context.Reservation.Where(r => r.Status == "Ordered").ToListAsync();
+            return View(dataReservation); // mengembalikan data reservasi yang masih dipesan
+        }
+
+        public async Task<IActionResult> HistoryReservations()
+        {
+            var reservations = await _context.Reservation.Where(r => r.Status != "Ordered").ToListAsync();
+
+            return View(reservations);
         }
 
         // GET: Reservations/Details/5
@@ -140,7 +168,6 @@ namespace resorty.Controllers
         // GET: Reservations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            // PR - ini dijadiin cancel
             if (id == null || _context.Reservation == null)
             {
                 return NotFound();
@@ -161,7 +188,6 @@ namespace resorty.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // PR - ini dijadiin cancel book ya
             if (_context.Reservation == null)
             {
                 return Problem("Entity set 'resortyContext.Reservation'  is null.");
@@ -181,6 +207,31 @@ namespace resorty.Controllers
         private bool ReservationExists(int id)
         {
           return _context.Reservation.Any(e => e.Id == id);
+        }
+
+        // ini jadi cancel
+        // GET method
+        public async Task<IActionResult> Cancel(int? id)
+        {
+            if (id == null || _context.Reservation == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _context.Reservation.FindAsync(id);
+            reservation.Status = "Canceled";
+
+            var roomData = _context.Room.Single(r => r.Name == reservation.Room);
+            roomData.Status = "Available";
+
+            await _context.SaveChangesAsync();
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
