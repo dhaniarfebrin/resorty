@@ -25,6 +25,15 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>Type</label>
+                    <select class="form-control" name="Type">
+                        <option>Pilih tipe...</option>
+                        <option value="1 bed">1 bed</option>
+                        <option value="2 bed">2 bed</option>
+                        <option value="3 bed">3 bed</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Price</label>
                     <input type="number" class="form-control" name="Price" autocomplete="off" />
                 </div>
@@ -46,6 +55,9 @@
                         @Html.DisplayNameFor(model => model.Floor)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Price)
                     </th>
                     <th>
@@ -62,6 +74,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Floor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
                     </td>
                     <td>
                         Rp. @Html.DisplayFor(modelItem => item.Price)

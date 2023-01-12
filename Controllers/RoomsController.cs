@@ -75,7 +75,7 @@ namespace resorty.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Floor,Price")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Name,Floor,Type,Price")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace resorty.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Floor,Price,Status")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Floor,Type,Price,Status")] Room room)
         {
             if (id != room.Id)
             {

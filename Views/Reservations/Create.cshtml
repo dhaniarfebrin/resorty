@@ -13,25 +13,25 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Client Name</label>
                 <input name="Name" type="text" class="form-control" autocomplete="off" />
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Room</label>
                 <select name="Room" class="form-control">
                     <option disabled selected>Pilih Kamar...</option>
                     @foreach (var item in Model)
                     {
-                        <option value=@item.Name>@Html.DisplayFor(modelItem => item.Name) - Floor @Html.DisplayFor(modelItem => item.Floor) - Rp. @Html.DisplayFor(modelItem => item.Price)</option>
+                        <option value=@item.Name>@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Type) Bed - Floor @Html.DisplayFor(modelItem => item.Floor) - Rp. @Html.DisplayFor(modelItem => item.Price)</option>
                     }
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label  class="control-label">Check In</label>
                 <input name="StartDate" type="date" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Check Out</label>
                 <input name="EndDate" type="date" class="form-control" />
             </div>

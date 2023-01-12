@@ -9,6 +9,7 @@ namespace resorty.Models
         [Display(Name = "Room")]
         public string Name { get; set; }
         public string Floor { get; set; }
+        public string? Type { get; set; }
         public int? Price { get; set; }
         public string? Status { get; set; }
     }
