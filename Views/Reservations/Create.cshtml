@@ -1,4 +1,4 @@
-﻿@model IEnumerable<resorty.Models.Room>
+﻿@model IEnumerable<resorty.Models.Bedroom>
 
 @{
     ViewData["Title"] = "Create";
@@ -23,7 +23,7 @@
                     <option disabled selected>Pilih Kamar...</option>
                     @foreach (var item in Model)
                     {
-                        <option value=@item.Name>@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Type) Bed - Floor @Html.DisplayFor(modelItem => item.Floor) - Rp. @Html.DisplayFor(modelItem => item.Price)</option>
+                        <option value=@item.Name>@Html.DisplayFor(modelItem => item.Name) - Rp. @Html.DisplayFor(modelItem => item.Price)</option>
                     }
                 </select>
             </div>
