@@ -1,4 +1,5 @@
 # resorty
+A Room Mangement Web Application for lodging
 
 ### how to run:<br>
 Run these following commands in Nuget package console:<br>
@@ -24,7 +25,16 @@ and then input this command to create database according to the migrations
 yeay, you can run it now.<br>
 Thank You<br><br>
 
-# Credit:<br>
+## Build Using
+<ul>
+  <li>C#</li>
+  <li>ASP.Net</li>
+  <li>SQL Server</li>
+  <li>Entity Framework (Linq)</li>
+</ul>
+<br>
+
+## Credit<br>
 ### Kelompok 5 Pemrograman Lanjut<br>
 <ul>
   <li>Dhaniar Febrin Wahyudi</li>
