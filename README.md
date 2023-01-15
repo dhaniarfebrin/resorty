@@ -22,4 +22,13 @@ and then input this command to create database according to the migrations
 
 <br>
 yeay, you can run it now.<br>
-Thank You
+Thank You<br><br>
+
+# Credit:<br>
+### Kelompok 5 Pemrograman Lanjut<br>
+<ul>
+  <li>Dhaniar Febrin Wahyudi</li>
+  <li>Jonathan Adeng Sparsa K</li>
+  <li>Lina Rohmatun</li>
+  <li>Faizal Ramadhandi Putra</li>
+</ul>
