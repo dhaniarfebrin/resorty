@@ -21,6 +21,11 @@ and then input this command to create database according to the migrations
   </code>
 </pre>
 
+
+### log in with:
+username: admin <br>
+password: admin <br>
+
 <br>
 yeay, you can run it now.<br>
 Thank You<br><br>
