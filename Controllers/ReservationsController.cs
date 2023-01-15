@@ -24,7 +24,7 @@ namespace resorty.Controllers
         {
             DateTime TodayDate = DateTime.Today;
             List<Reservation> reservations = _context.Reservation.ToList();
-            List<Room> rooms = _context.Room.ToList(); 
+            List<Bedroom> rooms = _context.Bedroom.ToList(); 
 
             foreach(var reservation in reservations)
             {
@@ -36,7 +36,7 @@ namespace resorty.Controllers
                     {
                         if(room.Name == reservation.Room)
                         {
-                            room.Status = "Available";
+                            room.Stocks = room.Stocks + 1;
                         }
                     }
                     await _context.SaveChangesAsync();
@@ -44,13 +44,24 @@ namespace resorty.Controllers
             }
 
             var countDataReservations = await _context.Reservation.Where(r => r.Status == "Ordered").CountAsync();
-            var countDataRooms = await _context.Room.Where(r => r.Status == "Available").CountAsync();
+            var countDataFinished = await _context.Reservation.Where(r => r.Status == "Finished").CountAsync();
+            var countDataCanceled = await _context.Reservation.Where(r => r.Status == "Canceled").CountAsync();
+
+            int roomAvailable = 0;
+            var countDataRooms = await _context.Bedroom.ToListAsync();
+
+            foreach(var room in countDataRooms)
+            {
+                roomAvailable = roomAvailable + room.Stocks;
+            }
 
             ViewData["countDataReservations"] = countDataReservations;
-            ViewData["countDataRooms"] = countDataRooms;
+            ViewData["countDataFinished"] = countDataFinished;
+            ViewData["countDataCanceled"] = countDataCanceled;
+            ViewData["countDataRooms"] = roomAvailable;
 
             return View();
-        }
+        } 
 
         // GET: Reservations
         public async Task<IActionResult> Index()
@@ -60,7 +71,7 @@ namespace resorty.Controllers
 
             DateTime TodayDate = DateTime.Today;
             List<Reservation> reservations = _context.Reservation.ToList();
-            List<Room> rooms = _context.Room.ToList();
+            List<Bedroom> rooms = _context.Bedroom.ToList();
 
             foreach (var reservation in reservations)
             {
@@ -72,7 +83,7 @@ namespace resorty.Controllers
                     {
                         if (room.Name == reservation.Room)
                         {
-                            room.Status = "Available";
+                            room.Stocks = room.Stocks + 1;
                         }
                     }
                     await _context.SaveChangesAsync();
@@ -112,7 +123,7 @@ namespace resorty.Controllers
         // GET: Reservations/Create
         public async Task<IActionResult> Create()
         {
-            var roomAvailable = await _context.Room.Where(r => r.Status == "Available").ToListAsync();
+            var roomAvailable = await _context.Bedroom.Where(r => r.Stocks > 0).ToListAsync();
 
             return View(roomAvailable);
         }
@@ -126,14 +137,14 @@ namespace resorty.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roomData = _context.Room.Single(r => r.Name == reservation.Room);
+                var roomData = _context.Bedroom.Single(r => r.Name == reservation.Room);
                 var numberOfDays = (reservation.EndDate - reservation.StartDate).TotalDays;
 
                 double priceTotal = (double)((numberOfDays + 1) * roomData.Price);
                 
                 reservation.PriceTotal = priceTotal;
                 reservation.Status = "Ordered";
-                roomData.Status = "Unavailable";
+                roomData.Stocks = roomData.Stocks - 1;
            
                 _context.Add(reservation);
                 await _context.SaveChangesAsync();
@@ -228,8 +239,8 @@ namespace resorty.Controllers
             var reservation = await _context.Reservation.FindAsync(id);
             if (reservation != null)
             {
-                var roomData = _context.Room.Single(r => r.Name == reservation.Room);
-                roomData.Status = "Available";
+                var roomData = _context.Bedroom.Single(r => r.Name == reservation.Room);
+                roomData.Stocks = roomData.Stocks + 1;
                 _context.Reservation.Remove(reservation);
             }
             
@@ -254,15 +265,16 @@ namespace resorty.Controllers
             var reservation = await _context.Reservation.FindAsync(id);
             reservation.Status = "Canceled";
 
-            var roomData = _context.Room.Single(r => r.Name == reservation.Room);
-            roomData.Status = "Available";
-
-            await _context.SaveChangesAsync();
-
             if (reservation == null)
             {
                 return NotFound();
             }
+
+            var roomData = _context.Bedroom.Single(r => r.Name == reservation.Room);
+            roomData.Stocks = roomData.Stocks + 1;
+
+            await _context.SaveChangesAsync();
+
 
             return RedirectToAction(nameof(Index));
         }

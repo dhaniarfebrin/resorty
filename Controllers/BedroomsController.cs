@@ -10,107 +10,85 @@ using resorty.Models;
 
 namespace resorty.Controllers
 {
-    public class RoomsController : Controller
+    public class BedroomsController : Controller
     {
         private readonly resortyContext _context;
 
-        public RoomsController(resortyContext context)
+        public BedroomsController(resortyContext context)
         {
             _context = context;
         }
 
-        // GET: Rooms
+        // GET: Bedrooms
         public async Task<IActionResult> Index()
         {
-            DateTime TodayDate = DateTime.Today;
-            List<Reservation> reservations = _context.Reservation.ToList();
-            List<Room> rooms = _context.Room.ToList();
-
-            foreach (var reservation in reservations)
-            {
-                if (TodayDate > reservation.EndDate && reservation.Status == "Ordered")
-                {
-                    reservation.Status = "Finished";
-
-                    foreach (var room in rooms)
-                    {
-                        if (room.Name == reservation.Room)
-                        {
-                            room.Status = "Available";
-                        }
-                    }
-                    await _context.SaveChangesAsync();
-                }
-            }
-
-            return View(await _context.Room.ToListAsync());
+              return View(await _context.Bedroom.ToListAsync());
         }
 
-        // GET: Rooms/Details/5
+        // GET: Bedrooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Room == null)
+            if (id == null || _context.Bedroom == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Room
+            var bedroom = await _context.Bedroom
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (room == null)
+            if (bedroom == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            return View(bedroom);
         }
 
-        // GET: Rooms/Create
+        // GET: Bedrooms/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Rooms/Create
+        // POST: Bedrooms/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Floor,Type,Price")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stocks")] Bedroom bedroom)
         {
             if (ModelState.IsValid)
             {
-                room.Status = "Available";
-                _context.Add(room);
+                _context.Add(bedroom);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(bedroom);
         }
 
-        // GET: Rooms/Edit/5
+        // GET: Bedrooms/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Room == null)
+            if (id == null || _context.Bedroom == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Room.FindAsync(id);
-            if (room == null)
+            var bedroom = await _context.Bedroom.FindAsync(id);
+            if (bedroom == null)
             {
                 return NotFound();
             }
-            return View(room);
+            return View(bedroom);
         }
 
-        // POST: Rooms/Edit/5
+        // POST: Bedrooms/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Floor,Type,Price,Status")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stocks")] Bedroom bedroom)
         {
-            if (id != room.Id)
+            if (id != bedroom.Id)
             {
                 return NotFound();
             }
@@ -119,12 +97,12 @@ namespace resorty.Controllers
             {
                 try
                 {
-                    _context.Update(room);
+                    _context.Update(bedroom);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.Id))
+                    if (!BedroomExists(bedroom.Id))
                     {
                         return NotFound();
                     }
@@ -135,49 +113,49 @@ namespace resorty.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(room);
+            return View(bedroom);
         }
 
-        // GET: Rooms/Delete/5
+        // GET: Bedrooms/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Room == null)
+            if (id == null || _context.Bedroom == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Room
+            var bedroom = await _context.Bedroom
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (room == null)
+            if (bedroom == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            return View(bedroom);
         }
 
-        // POST: Rooms/Delete/5
+        // POST: Bedrooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Room == null)
+            if (_context.Bedroom == null)
             {
-                return Problem("Entity set 'resortyContext.Room'  is null.");
+                return Problem("Entity set 'resortyContext.Bedroom'  is null.");
             }
-            var room = await _context.Room.FindAsync(id);
-            if (room != null)
+            var bedroom = await _context.Bedroom.FindAsync(id);
+            if (bedroom != null)
             {
-                _context.Room.Remove(room);
+                _context.Bedroom.Remove(bedroom);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomExists(int id)
+        private bool BedroomExists(int id)
         {
-          return _context.Room.Any(e => e.Id == id);
+          return _context.Bedroom.Any(e => e.Id == id);
         }
     }
 }

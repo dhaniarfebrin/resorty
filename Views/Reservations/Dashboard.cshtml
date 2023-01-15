@@ -19,7 +19,27 @@
          </a>
      </div>
     <div class="col-md-3">
-        <a href="/Rooms/Index" class="link-from-dashboard">
+        <a href="/Reservations/HistoryReservations" class="link-from-dashboard">
+            <div class="rectangle-reservations data-count-view bg-white w-100 shadow-sm rounded-3 p-4">
+                <h5 class="fw-normal text-secondary">Finished</h5>
+                <div class="d-flex align-items-end justify-content-end">
+                    <span class="fw-bolder" ">@ViewData["countDataFinished"]</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/Reservations/HistoryReservations" class="link-from-dashboard">
+            <div class="rectangle-reservations data-count-view bg-white w-100 shadow-sm rounded-3 p-4">
+                <h5 class="fw-normal text-secondary">Canceled</h5>
+                <div class="d-flex align-items-end justify-content-end">
+                    <span class="fw-bolder" ">@ViewData["countDataCanceled"]</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/Bedrooms/Index" class="link-from-dashboard">
             <div class="rectangle-reservations data-count-view bg-white w-100 shadow-sm rounded-3 p-4">
                 <h5 class="fw-normal text-secondary">Rooms Available</h5>
                 <div class="d-flex align-items-end justify-content-end">
