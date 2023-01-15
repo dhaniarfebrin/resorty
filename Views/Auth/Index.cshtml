@@ -22,8 +22,19 @@
                <div class="right d-flex flex-column">
                   <h1 class="brand-title text-primary position-absolute">resorty <span> Room Manager</span></h1>
                   <div class="rectangle-form p-5 m-auto">
-                      <h2 class="title">Login</h2>
-                      <form class="mt-5 d-flex flex-column" asp-action="Login">
+                      <h2 class="title mb-5">Login</h2>
+                        @{
+                            if (TempData["Message"] != null)
+                            {
+                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                    <div>
+                                        @TempData["Message"]
+                                    </div>
+                                    <button type="button" class="ms-auto btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                        }
+                      <form class="mt-4 d-flex flex-column" asp-action="Login">
                           <div class="form-group">
                               <label class="text-secondary mb-1">Username</label>
                               <input class="form-control rounded-4" name="Username" type="text" />

@@ -14,6 +14,9 @@ namespace resorty.Controllers
     {
         private readonly resortyContext _context;
 
+        [TempData]
+        public string Message { get; set; }
+
         public AuthController(resortyContext context)
         {
             _context = context;
@@ -39,7 +42,16 @@ namespace resorty.Controllers
                     if (userItem.Password == user.Password)
                     {
                         return RedirectToAction("Dashboard", "Reservations");
+                    } 
+                    else
+                    {
+                        Message = "The Password is incorrect";
                     }
+                } 
+                else
+                {
+
+                    Message = "There is no account for that username";
                 }
             }
 
