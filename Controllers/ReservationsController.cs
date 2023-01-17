@@ -8,20 +8,29 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using resorty.Data;
 using resorty.Models;
+using resorty.Controllers;
 
 namespace resorty.Controllers
 {
     public class ReservationsController : Controller
     {
         private readonly resortyContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public ReservationsController(resortyContext context)
+        public ReservationsController(resortyContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _contextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Dashboard()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             DateTime TodayDate = DateTime.Today;
             List<Reservation> reservations = _context.Reservation.ToList();
             List<Bedroom> rooms = _context.Bedroom.ToList(); 
@@ -66,6 +75,12 @@ namespace resorty.Controllers
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             // ga nampilin reservasi kalo dah lewat tanggalnya
             // auto merubah status room nya
 
@@ -90,6 +105,8 @@ namespace resorty.Controllers
                 }
             }
 
+
+
             var dataReservation = await _context.Reservation.Where(r => r.Status == "Ordered").ToListAsync();       
 
             return View(dataReservation); // mengembalikan data reservasi yang masih dipesan
@@ -97,6 +114,12 @@ namespace resorty.Controllers
 
         public async Task<IActionResult> HistoryReservations()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             var reservations = await _context.Reservation.Where(r => r.Status != "Ordered").ToListAsync();
 
             return View(reservations);
@@ -123,6 +146,12 @@ namespace resorty.Controllers
         // GET: Reservations/Create
         public async Task<IActionResult> Create()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             var roomAvailable = await _context.Bedroom.Where(r => r.Stocks > 0).ToListAsync();
 
             return View(roomAvailable);
@@ -257,6 +286,12 @@ namespace resorty.Controllers
         // GET method
         public async Task<IActionResult> Cancel(int? id)
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             if (id == null || _context.Reservation == null)
             {
                 return NotFound();

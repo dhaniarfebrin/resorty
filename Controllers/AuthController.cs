@@ -7,27 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using resorty.Data;
 using resorty.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace resorty.Controllers
 {
     public class AuthController : Controller
     {
         private readonly resortyContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
         [TempData]
         public string Message { get; set; }
 
-        public AuthController(resortyContext context)
+        public AuthController(resortyContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
-        }
+            _contextAccessor = httpContext;
+        }   
 
         // GET: Auth
         public async Task<IActionResult> Index()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if(!string.IsNullOrWhiteSpace(sessionName)) {
+                return RedirectToAction("Dashboard", "Reservations");
+            }
+
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,6 +48,8 @@ namespace resorty.Controllers
                 {
                     if (userItem.Password == user.Password)
                     {
+                        _contextAccessor.HttpContext.Session.SetString("SessionName", userItem.Name);
+
                         return RedirectToAction("Dashboard", "Reservations");
                     } 
                     else
@@ -50,7 +59,6 @@ namespace resorty.Controllers
                 } 
                 else
                 {
-
                     Message = "There is no account for that username";
                 }
             }
@@ -58,15 +66,12 @@ namespace resorty.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
+            _contextAccessor. HttpContext.Session.Clear();
             return RedirectToAction(nameof(Index));
         }
-
-
-
-
 
 
 

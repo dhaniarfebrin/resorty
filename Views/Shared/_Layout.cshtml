@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,27 +15,67 @@
     <div class="d-flex">
         <aside class="position-relative sidebar">
             <h2 class="brand-title text-primary">resorty</h2>
+            <div class="bg-primary p-3 py-4 d-flex mt-5 mb-5 shadow profile-card rounded">
+                <h5 class="m-0">@_contextAccessor.HttpContext.Session.GetString("SessionName")</h5>
+            </div>
+
             <ul class="link-list d-flex flex-column">
-                <li class="link-item">
-                    <a asp-controller="Reservations" asp-action="Dashboard" class="text-secondary">
-                        Dashboard
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a asp-controller="Reservations" asp-action="Index" class="text-secondary">
-                        Reservations
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a asp-controller="Reservations" asp-action="HistoryReservations" class="text-secondary">
-                        History
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a asp-controller="Bedrooms" asp-action="Index" class="text-secondary">
-                        Rooms
-                    </a>
-                </li>
+                @if ((string?)ViewData["Title"] == "Dashboard")
+                {
+                    <li class="link-item active">
+                        <a asp-controller="Reservations" asp-action="Dashboard" class="text-secondary">
+                            Dashboard
+                        </a>
+                    </li>
+                } else {
+                    <li class="link-item">
+                        <a asp-controller="Reservations" asp-action="Dashboard" class="text-secondary">
+                            Dashboard
+                        </a>
+                    </li>
+                }
+                @if ((string?)ViewData["Title"] == "Reservations")
+                {
+                    <li class="link-item active">
+                        <a asp-controller="Reservations" asp-action="Index" class="text-secondary">
+                            Reservations
+                        </a>
+                    </li>
+                } else {
+                    <li class="link-item">
+                        <a asp-controller="Reservations" asp-action="Index" class="text-secondary">
+                            Reservations
+                        </a>
+                    </li>
+                }
+                @if ((string?)ViewData["Title"] == "History")
+                {
+                    <li class="link-item active">
+                        <a asp-controller="Reservations" asp-action="HistoryReservations" class="text-secondary">
+                            History
+                        </a>
+                    </li>
+                } else {
+                    <li class="link-item">
+                        <a asp-controller="Reservations" asp-action="HistoryReservations" class="text-secondary">
+                            History
+                        </a>
+                    </li>
+                }
+                @if ((string?)ViewData["Title"] == "Rooms")
+                {
+                    <li class="link-item active">
+                        <a asp-controller="Bedrooms" asp-action="Index" class="text-secondary">
+                            Rooms
+                        </a>
+                    </li>
+                } else {
+                    <li class="link-item">
+                        <a asp-controller="Bedrooms" asp-action="Index" class="text-secondary">
+                            Rooms
+                        </a>
+                    </li>
+                }
             </ul>
             <a class="btn btn-danger text-light w-100 mt-auto" asp-controller="Auth" asp-action="Logout">Logout</a>
         </aside>

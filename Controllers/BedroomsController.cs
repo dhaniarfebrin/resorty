@@ -13,16 +13,24 @@ namespace resorty.Controllers
     public class BedroomsController : Controller
     {
         private readonly resortyContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public BedroomsController(resortyContext context)
+        public BedroomsController(resortyContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
+            _contextAccessor = contextAccessor;
         }
 
         // GET: Bedrooms
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Bedroom.ToListAsync());
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
+            return View(await _context.Bedroom.ToListAsync());
         }
 
         // GET: Bedrooms/Details/5
@@ -46,6 +54,12 @@ namespace resorty.Controllers
         // GET: Bedrooms/Create
         public IActionResult Create()
         {
+            string sessionName = _contextAccessor.HttpContext.Session.GetString("SessionName");
+            if (string.IsNullOrWhiteSpace(sessionName))
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             return View();
         }
 
