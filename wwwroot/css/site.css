@@ -84,7 +84,7 @@ form label {
 }
 
 button.btn.btn-primary {
-    background-color: #0C86AD;
+    background-color: #0C86AD !important;
 }
 
 button.btn.btn-primary.btn-lg {

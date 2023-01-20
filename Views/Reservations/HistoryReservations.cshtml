@@ -59,6 +59,9 @@
                             <td>
                                 Rp. @Html.DisplayFor(modelItem => item.PriceTotal)
                             </td>
+                            <td>
+                                <a asp-action="Delete" asp-controller="Reservations" asp-route-id="@item.Id">Delete</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
