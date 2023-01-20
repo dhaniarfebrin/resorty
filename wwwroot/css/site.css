@@ -84,7 +84,7 @@ form label {
 }
 
 button.btn.btn-primary {
-    background-color: #0C86AD;
+    background-color: #0C86AD !important;
 }
 
 button.btn.btn-primary.btn-lg {
@@ -103,14 +103,14 @@ aside.sidebar {
 
 h2.brand-title {
     font-weight: 700;
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
 }
 
 aside ul.link-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
-    height: 75%;
+    height: 35%;
 }
 
 aside ul.link-list > li.link-item{
@@ -127,6 +127,18 @@ li.link-item > a:hover {
     margin-left: 4px;
     transition: .3s;
     font-size: 17px;
+}
+
+li.link-item.active {
+    padding: .5rem;
+    padding-left: 18px;
+    color: white !important;
+    background-color: #0C86AD !important;
+    border-radius: 4px;
+}
+
+li.link-item.active > a.text-secondary {
+    color: white !important;
 }
 
 div.rectangle-form-input-room {
@@ -169,4 +181,9 @@ div.data-count-view > div {
 
 a.link-from-dashboard {
     text-decoration: none;
+}
+
+div.profile-card.bg-primary {
+    background-color: #0C86AD !important;
+    color: white;
 }

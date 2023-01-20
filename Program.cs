@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using resorty.Data;
 using resorty.Models;
@@ -9,6 +10,13 @@ builder.Services.AddDbContext<resortyContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddDistributedMemoryCache();
+
+// session configuration
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -33,6 +41,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession(); // session
 
 app.MapControllerRoute(
     name: "default",
